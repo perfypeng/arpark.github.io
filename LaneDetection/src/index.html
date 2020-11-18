@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Hello OpenCV.js</title>
+</head>
+<body>
+<h2>Hello OpenCV.js</h2>
+<p id="status">OpenCV.js is loading...</p>
+
+<button onclick="ChangeButton();">Change</button>
+
+<div>
+  <div class="edge">
+    <canvas id="edge" ></canvas>
+  <div class="caption">edge</div>
+  </div>
+  <div class="inputoutput">
+    <img id="imageSrc" alt="No Image" />
+    <!-- <div class="caption">imageSrc <input type="file" id="fileInput" name="file" /></div> -->
+  </div>
+  <!-- <video id="video" width="640" height=360" src="../video/project_video.mp4" autobuffer onclick="play()"> 
+    <div class="fallback"> <p>You must have an HTML5 capable browser.</p> </div>
+  </video> -->
+  <div class="denoise">
+    <canvas id="denoise" ></canvas>
+    <div class="caption">denoise</div>
+  </div>
+  <div class="gray">
+    <canvas id="gray" ></canvas>
+    <div class="caption">gray</div>
+  </div>
+  <div class="binary">
+    <canvas id="binary" ></canvas>
+    <div class="caption">binary</div>
+  </div>
+  <div class="mask">
+    <canvas id="mask" ></canvas>
+    <div class="caption">mask</div>
+  </div>
+</div>
+<script src="./main.js" type="text/javascript"></script>
+<script src="./opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+</body>
+</html>
