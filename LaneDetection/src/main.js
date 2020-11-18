@@ -22,12 +22,13 @@ function clock()
 {
   time++;
   if((start_flag === true) && (time > 10)) {
-    imageProcess();
-  }
+    // imageProcess();
+    displayImage();
+    clearInterval(int);
+  } 
 }
 
-// image process  
-function imageProcess() {
+function displayImage() {
   //let cap = cv.VideoCapture("../video/project_video.mp4") ;
   imageCnt++;
   
@@ -40,7 +41,15 @@ function imageProcess() {
   }
   
   imgElement.setAttribute("src", fileName);
-  
+}
+
+function imageOnload() {
+  imageProcess();
+  displayImage();
+}
+// image process  
+function imageProcess() {
+
   let startTime = performance.now();
   let mat = cv.imread(imgElement);
 
@@ -62,6 +71,7 @@ function imageProcess() {
   if(imageCnt >= 540) {
     imageCnt = 0;
     start_flag = false;
+    //clearInterval(int);
   }
   output.delete();
   mat.delete();
