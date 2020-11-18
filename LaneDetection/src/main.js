@@ -56,6 +56,7 @@ function imageOnload() {
 function imageProcess() {
 
   let startTime = performance.now();
+  // let test = new cv.Mat();
   let mat = cv.imread(imgElement);
 
   let output = deNoise(mat);
