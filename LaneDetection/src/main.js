@@ -5,6 +5,7 @@ let start_flag = false;
 let time = 0;
 let imageCnt = 0;
 let fileName = null;
+let process_flag = true;
 
 let right_flag = false;
 let left_flag = false;
@@ -24,8 +25,10 @@ function clock()
   if((start_flag === true) && (time > 10)) {
     // imageProcess();
     displayImage();
+    // start_flag = false;
     clearInterval(int);
   } 
+
 }
 
 function displayImage() {
@@ -33,11 +36,11 @@ function displayImage() {
   imageCnt++;
   
   if(imageCnt < 10) {
-    fileName = "../img/00" + imageCnt + "_srcImage.png";
+    fileName = "../img/00" + imageCnt + "_srcImage.jpg";
   } else if(imageCnt >=10 && imageCnt < 100) {
-    fileName = "../img/0" + imageCnt + "_srcImage.png";
+    fileName = "../img/0" + imageCnt + "_srcImage.jpg";
   } else {
-    fileName = "../img/" + imageCnt + "_srcImage.png";
+    fileName = "../img/" + imageCnt + "_srcImage.jpg";
   }
   
   imgElement.setAttribute("src", fileName);
@@ -46,7 +49,9 @@ function displayImage() {
 function imageOnload() {
   imageProcess();
   displayImage();
+  //setTimeout(function() { displayImage(); }, 50);
 }
+
 // image process  
 function imageProcess() {
 
@@ -137,10 +142,10 @@ function mask(img_edges) {
 
   let npts = 4;
   let square_point_data = new Uint32Array([
-      210, 720,
-      550, 450,
-      717, 450,
-      1280, 720]);
+      210/2, 720/2,
+      550/2, 450/2,
+      717/2, 450/2,
+      1280/2, 720/2]);
   let square_points = cv.matFromArray(npts, 1, cv.CV_32SC2, square_point_data);
   let pts = new cv.MatVector();
   pts.push_back (square_points);
@@ -286,15 +291,17 @@ function regression(left_right_lines, inputImage) {
       contours.push_back(square_points);
     }
   
-    let line = new cv.Mat();
-    let cnt = contours.get(0);
-    // You can try more different parameters
-    cv.fitLine(cnt, line, cv.DIST_L2, 0, 0.01, 0.01);
-    right_a = line.data32F[1] / line.data32F[0];
-    right_b = new cv.Point(line.data32F[2], line.data32F[3]);
+    if(left_right_lines[0].length > 0) {
+      let line = new cv.Mat();
+      let cnt = contours.get(0);
+      // You can try more different parameters
+      cv.fitLine(cnt, line, cv.DIST_L2, 0, 0.01, 0.01);
+      right_a = line.data32F[1] / line.data32F[0];
+      right_b = new cv.Point(line.data32F[2], line.data32F[3]);
 
-    line.delete();
-    cnt.delete();
+      line.delete();
+      cnt.delete();
+    }
     contours.delete();
   }
 
@@ -313,22 +320,24 @@ function regression(left_right_lines, inputImage) {
       contours.push_back(square_points);
     }
   
-    let line = new cv.Mat();
-    let cnt = contours.get(0);
-    // You can try more different parameters
-    cv.fitLine(cnt, line, cv.DIST_L2, 0, 0.01, 0.01);
-    left_a = line.data32F[1] / line.data32F[0];
-    left_b = new  cv.Point(line.data32F[2], line.data32F[3]);
-    
-    line.delete();
-    cnt.delete();
+    if(left_right_lines[1].length > 0) {
+      let line = new cv.Mat();
+      let cnt = contours.get(0);
+      // You can try more different parameters
+      cv.fitLine(cnt, line, cv.DIST_L2, 0, 0.01, 0.01);
+      left_a = line.data32F[1] / line.data32F[0];
+      left_b = new  cv.Point(line.data32F[2], line.data32F[3]);
+      
+      line.delete();
+      cnt.delete();
+    }
     contours.delete();
   
   }
 
     // One the slope and offset points have been obtained, apply the line equation to obtain the line points
     let ini_y = inputImage.rows;
-    let fin_y = 470;
+    let fin_y = 470/2;
   
     let right_ini_x = ((ini_y - right_b.y) / right_a) + right_b.x;
     let right_fin_x = ((fin_y - right_b.y) / right_a) + right_b.x;
