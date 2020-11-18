@@ -32,11 +32,11 @@ function imageProcess() {
   imageCnt++;
   
   if(imageCnt < 10) {
-    fileName = "../img/00" + imageCnt + "_srcImage.jpg";
+    fileName = "../img/00" + imageCnt + "_srcImage.png";
   } else if(imageCnt >=10 && imageCnt < 100) {
-    fileName = "../img/0" + imageCnt + "_srcImage.jpg";
+    fileName = "../img/0" + imageCnt + "_srcImage.png";
   } else {
-    fileName = "../img/" + imageCnt + "_srcImage.jpg";
+    fileName = "../img/" + imageCnt + "_srcImage.png";
   }
   
   imgElement.setAttribute("src", fileName);
