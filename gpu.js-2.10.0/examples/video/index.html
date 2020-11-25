@@ -70,8 +70,10 @@
       graphical: true,
       tactic: 'precision'
     });
+    
     canvasParent.appendChild(kernel.canvas);
     const videoElement = document.querySelector('video');
+
     function render() {
       if (disposed) {
         return;
