@@ -104,6 +104,7 @@
           inversionAttempts: "dontInvert",
         });
         let endTime = new Date();
+        let intval = endTime - startTime;
         if (code) {
           drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
           drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
@@ -111,7 +112,7 @@
           drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
           outputMessage.hidden = true;
           outputData.parentElement.hidden = false;
-          outputData.innerText = code.data + " Time: " + (endTime - startTime) + "ms";
+          outputData.innerText = code.data + ` ${intval} ms`;
         } else {
           outputMessage.hidden = false;
           outputData.parentElement.hidden = true;
