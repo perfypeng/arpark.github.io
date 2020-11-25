@@ -99,9 +99,11 @@
         canvasElement.width = video.videoWidth;
         canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
         var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
-        var code = jsQR(imageData.data, imageData.width, imageData.height, {
+        let startTime = new Date();
+        var code = jsQR(imageData.data, imageData.width, imageData.height, {  
           inversionAttempts: "dontInvert",
         });
+        let endTime = new Date();
         if (code) {
           drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
           drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
@@ -109,7 +111,7 @@
           drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
           outputMessage.hidden = true;
           outputData.parentElement.hidden = false;
-          outputData.innerText = code.data;
+          outputData.innerText = code.data + " Time: " + (endTime - startTime) + "ms";
         } else {
           outputMessage.hidden = false;
           outputData.parentElement.hidden = true;
