@@ -419,7 +419,7 @@ function plotLane(inputImage, lane, turn) {
   cv.line(inputImage, lane[2], lane[3], new cv.Scalar(0, 255, 255), 5, cv.LINE_AA, 0);
 
   // Plot the turn message
-  cv.putText(inputImage, turn+"-" + fileName, new cv.Point(50, 90), cv.FONT_HERSHEY_COMPLEX_SMALL, 1, new cv.Scalar(0, 255, 0), 1, cv.LINE_AA);
+  // cv.putText(inputImage, turn+"-" + fileName, new cv.Point(50, 90), cv.FONT_HERSHEY_COMPLEX_SMALL, 1, new cv.Scalar(0, 255, 0), 1, cv.LINE_AA);
 
   // Show the final output image
   // cv.namedWindow("Lane", cv.CV_WINDOW_AUTOSIZE);
